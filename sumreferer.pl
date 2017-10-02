@@ -9,18 +9,14 @@ open(LOGFILE, "$infile") || die $!;
 while (<LOGFILE>) {
   /^(.*) (.*) (.*) \[(.*)\] "(.*)" (.*) (.*) "(.*)" "(.*)"/;
 
-  $httpstatus = $6;
-  if ($httpstatus != 200) { next; }
-
-  $httpreferer = $8;
-  $referercount{$httpreferer}++;
+  if ($6 != 200) { next; } # http status 200
+  $rcount{$8}++;
 
 }
 close(FILE);
 
-foreach $key (sort {$referercount{$a} <=> $referercount{$b}}
-                keys %referercount) {
-  print $referercount{$key};
+foreach $key (sort {$rcount{$a} <=> $rcount{$b}} keys %rcount) {
+  print $rcount{$key};
   print "\t$key\n";
 }
 
