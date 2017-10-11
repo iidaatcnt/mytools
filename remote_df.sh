@@ -1,12 +1,15 @@
 #!/bin/bash
-# usage : ./remote_df.sh ~/.ssh/id_rsa hoge@111.111.111.111
 
+Usage="usage : ./remote_df.sh ~/.ssh/id_rsa hoge@111.111.111.111"
 Limit=10
 Command="df -h"
 
-if [ $# -gt 2 ]; then
+if [ $# -ge 2 ]; then
   Key=$1
   Host=$2
+else
+  echo $Usage
+  exit 1
 fi
 
 dfout=`ssh -i $Key $Host $Command`
