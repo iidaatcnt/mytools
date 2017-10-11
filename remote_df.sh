@@ -18,7 +18,7 @@ array=(`echo "$dfout" | awk 'NR>1{gsub("%","",$5);if($5 ~/^[0-9]+$/)print $5}'`)
 for i in "${array[@]}"
 do
   if [ $i -gt $Limit ]; then
-    echo $Host `date '+%Y/%m/%d-%H:%M'`
+    echo "Alert:" $Host `date '+%Y/%m/%d-%H:%M'`
     echo "$dfout"
     break
   fi
