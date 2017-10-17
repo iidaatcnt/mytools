@@ -1,4 +1,5 @@
 # awk-scripts
+update : 2017/10/10 
 
 usage:
 $ awk -f dev.awk scores.csv
