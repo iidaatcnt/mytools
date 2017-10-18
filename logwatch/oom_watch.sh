@@ -1,8 +1,9 @@
 #!/bin/bash
 
-Email_address="xxxx@cntsv.jp"
-Log_name="/var/log/messages"
-Keyword='Out of memory: Kill process'
+Your_email_address="iida.m@cntsv.jp"
+#Log_name="/var/log/messages"
+Log_name="logfile"
+Searchword="Out of memory: Kill process"
 
 alert_mail() {
   while read i
@@ -10,6 +11,7 @@ alert_mail() {
     echo $i | grep -q "${Keyword}"
     if [ $? = "0" ];then
       echo $i | mail -s ERROR "{$Email_address}"
+      #echo $i 
     fi
   done
 }
