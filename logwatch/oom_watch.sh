@@ -1,26 +1,18 @@
 #!/bin/bash
 
-Your_email_address='xxxx@cntsv.jp'
+Email_address="xxxx@cntsv.jp"
+Log_name="/var/log/messages"
+Keyword="Out of"
 
-function func_send_alert()
-{
-  echo -e " \
-Create by $0 at `date` \n \
-hostname : `hostname` \n \
-\n \
-Disk usage alert: $i %\n \
----- detail ---- \n \
-`/bin/df -h`" \
-  | /bin/mail -s "[WARNING][`hostname`] disk space alert" "$Your_email_address"
+alert_mail() {
+  while read i
+  do
+    echo $i | grep -q "${Keyword}"
+    if [ $? = "0" ];then
+      echo $i | mail -s ERROR "{$Email_address}"
+    fi
+  done
 }
 
-## Main process ##
-array=(`/bin/df | /bin/awk 'NR>1{gsub("%","",$5);print $5}'`)
-for i in "${array[@]}"
-do
-  if [ $i -gt $Limit ]; then
-    func_send_alert
-    #echo -e "Disk usage alert: $i %\n\n`/bin/df -h`" | /bin/mail -s "[WARNING][`hostname`] disk space alert" "$Your_email_address"
-    break
-  fi
-done
+tail -n 0 --follow=name --retry $Log_name | alert_mail
+
