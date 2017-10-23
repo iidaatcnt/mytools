@@ -16,7 +16,7 @@ OS     | CentOS6.8
 host   | "192.168.43.51"
 wp     | "192.168.43.52"
 
-## 入れておくと便利
+## 作業中に使うので入れておく
 $ sudo yum install git tree vim -y
 
 ## vagrant起動
@@ -111,3 +111,19 @@ hosts
 phpinfo.php
 playbook.yml
 
+##  git
+$ git clone https://github.com/yteraoka/ansible-tutorial.git
+$ cd ansible-tutorial
+$ git checkout playbook
+$ ansible-playbook -i test-servers site.yml
+
+(警告メッセージが出る)
+TASK [wordpress : extract wordpress tar ball] *******
+ [WARNING]: Consider using unarchive module rather than running tar
+TASK [wordpress : generate secret keys] *******
+ [WARNING]: Consider using get_url or uri module rather than running curl
+RUNNING HANDLER [wordpress : change wordpress files owner] *******
+ [WARNING]: Consider using file module with owner rather than running chown
+
+## Wordpressのセットアップ開始
+http://192.168.33.12/wp-admin/install.php
