@@ -57,13 +57,14 @@ $ vagrant ssh host
 $ vi .ssh/config
 --
 Host wp
- HostName 192.168.43.52
+ HostName 192.168.33.12
 --
 $ chmod 600 .ssh/config
 $ ssh-keygen -t rsa
 $ ssh-copy-id wp
 Are you sure you want to continue connecting (yes/no)? yes
 vagrant@192.168.43.52's password:vagrant
+$ ssh wp
 $ exit
 ```
 
@@ -71,7 +72,7 @@ $ exit
 ```
 $ cat hosts
 [wp]
-192.168.43.52
+192.168.33.12
 ```
 ```
 $ cat ansible.cfg 
@@ -80,7 +81,7 @@ hostfile = ./hosts
 ```
 ```
 $ ansible wp -m ping
-192.168.43.52 | SUCCESS => {
+192.168.33.12 | SUCCESS => {
     "changed": false, 
     "ping": "pong"
 }
@@ -90,7 +91,7 @@ $ ansible wp -m ping
 ```
 ---
 - hosts: all
-  sudo: yes
+  become: yes
   tasks:
     - name: add a new user
       user: name=miida
