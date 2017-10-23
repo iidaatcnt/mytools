@@ -111,7 +111,11 @@ hosts
 phpinfo.php
 playbook.yml
 
-##  git
+##  いよいよAnsibleでWordPressのインストール
+	参考情報：
+	Ansible チュートリアル | Ansible Tutorial in Japanese
+	http://yteraoka.github.io/ansible-tutorial/
+
 $ git clone https://github.com/yteraoka/ansible-tutorial.git
 $ cd ansible-tutorial
 $ git checkout playbook
