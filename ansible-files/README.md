@@ -8,10 +8,13 @@ www.ansible.com
 Download
 https://ja.wordpress.org/latest-ja.tar.gz
 
------|-----------------
-OS   | CentOS6.8
-host | "192.168.43.51"
-wp   | "192.168.43.52"
+-------|-----------------
+ansible| 2.3.1.0
+Python | 3.5.2
+-------|-----------------
+OS     | CentOS6.8
+host   | "192.168.43.51"
+wp     | "192.168.43.52"
 
 ## 入れておくと便利
 $ sudo yum install git tree vim -y
@@ -19,7 +22,21 @@ $ sudo yum install git tree vim -y
 ## vagrant起動
 ```
 $ cd vagrants/wordpress
+$ vagrant init bento/centos-6.8
 $ vim Vagrantfile（Boxのバージョン番号の記述に注意する）
+  #config.vm.box = "centos6"
+  config.vm.define :host do |node|
+    node.vm.box = "centos6"
+    node.vm.network :forwarded_port, guest: 22, host: 2001, id: "ssh"
+    node.vm.network :private_network, ip: "192.168.33.11"
+  end
+
+  config.vm.define :wp do |node|
+    node.vm.box = "centos6"
+    node.vm.network :forwarded_port, guest: 22, host: 2002, id: "ssh"
+    node.vm.network :forwarded_port, guest: 80, host: 8000, id: "http"
+    node.vm.network :private_network, ip: "192.168.33.12"
+  end
 $ vagrant up
 $ vagrant global-status
 c159efe  host    virtualbox running  /Users/Yourname/vagrants/wordpress 
@@ -37,7 +54,7 @@ $ vagrant ssh host
 
 ### SSH設定
 ```
-$ vim .ssh/config
+$ vi .ssh/config
 --
 Host wp
  HostName 192.168.43.52
@@ -47,6 +64,7 @@ $ ssh-keygen -t rsa
 $ ssh-copy-id wp
 Are you sure you want to continue connecting (yes/no)? yes
 vagrant@192.168.43.52's password:vagrant
+$ exit
 ```
 
 ### ansibleのテスト
