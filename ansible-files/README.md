@@ -1,89 +1,94 @@
+CentOS 7.2
 
-www.ansible.com 
+## ansibleの公式サイト
+www.ansible.com
 
------------|-------------
-macOS      | macOS sierra 10.12.6
-Vagrant    | 1.9.7
-VirtualBox | 5.1.26 r117224 (Qt5.6.2)
------------|-------------
-ansible    | 2.3.2.0
-Python     | 2.7.5
-host       | "192.168.43.51"
-wp         | "192.168.43.52"
+## Wordpress公式サイト
+/Users/masakatsuiida/workspace/ForMaintainer/init_wordpress
+Download
+https://ja.wordpress.org/latest-ja.tar.gz
 
+-----|-----------------
+OS   | CentOS6.8
+host | "192.168.43.51"
+wp   | "192.168.43.52"
+
+## 入れておくと便利
+$ sudo yum install git tree vim -y
+
+## vagrant起動
 ```
-$ vagrant init
-$ Vagrantfileの編集
+$ cd vagrants/wordpress
+$ vim Vagrantfile（Boxのバージョン番号の記述に注意する）
 $ vagrant up
 $ vagrant global-status
-id       name    provider   state    directory                                      
-------------------------------------------------------------------------------------
-77f38ad  host    virtualbox running  /Users/masakatsuiida/vagrant_workspace/centos7 
-9fc83da  wp      virtualbox running  /Users/masakatsuiida/vagrant_workspace/centos7 
+c159efe  host    virtualbox running  /Users/Yourname/vagrants/wordpress 
+2072b01  wp      virtualbox running  /Users/Yourname/vagrants/wordpress 
 ```
 
+## ansible hostのセットアップ
 ```
 $ vagrant ssh host
-$ wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-$ sudo rpm -Uvh epel-release-6-8.noarch.rpm
-$ sudo yum -y install ansible
-$ ansible --version
+[vagrant@host]$ wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+[vagrant@host]$ sudo rpm -Uvh epel-release-6-8.noarch.rpm
+[vagrant@host]$ sudo yum -y install ansible
+[vagrant@host]$ ansible --version
 ```
 
+### SSH設定
 ```
-$ vagrant ssh host
-$ vi .ssh/config
------ 編集開始
-Host web
+$ vim .ssh/config
+--
+Host wp
  HostName 192.168.43.52
-Host db
- HostName 192.168.43.53
------ 編集終了
+--
 $ chmod 600 .ssh/config
 $ ssh-keygen -t rsa
 $ ssh-copy-id wp
-$ ssh wp
+Are you sure you want to continue connecting (yes/no)? yes
+vagrant@192.168.43.52's password:vagrant
 ```
 
-
-vi hosts
------ 編集開始
-[web]
+### ansibleのテスト
+```
+$ cat hosts
+[wp]
 192.168.43.52
-
-[db]
-192.168.43.53
------ 編集終了
-ansible all -i hosts -m ping
-vi ansible.cfg
------ 編集開始
+```
+```
+$ cat ansible.cfg 
 [defaults]
 hostfile = ./hosts
------ 編集終了
-ansible all -m ping
+```
+```
+$ ansible wp -m ping
+192.168.43.52 | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+```
 
-
-playbook.yml 
+### 最初のプレイブックを実行、playbook.yml
+```
 ---
 - hosts: all
   sudo: yes
   tasks:
     - name: add a new user
-      user: name=taguchi
+      user: name=miida
+```
 
+### ansibleのテスト
+```
+$ ansible-playbook playbook.yml --syntax-check
+$ ansible-playbook playbook.yml --list-task
+$ ansible-playbook playbook.yml --check
+```
 
-ansible-playbook playbook.yml --syntax-check
-ansible-playbook playbook.yml --list-task
-ansible-playbook playbook.yml --check
-
-
-index.html
-<html>
-hello from ansible!
-</html>
-
-
+## 資材
+Vagrantfile
+ansible.cfg
+hosts
 phpinfo.php
-<?php
+playbook.yml
 
-echo "hello from PHP!";
