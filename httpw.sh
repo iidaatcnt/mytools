@@ -1,3 +1,4 @@
+[ec2-user@blaublitz nssx]$ more httpw.sh
 #!/bin/bash
 # create : 2017/09/14 m.iida
 # update : 2017/09/15
@@ -15,5 +16,7 @@ CONNECT_MySQL_ALL=`netstat -ant | grep ":3306 "  | wc -l`
 
 echo "DATE      TIME      TOTAL-MEM FREE-MEM HTTPDs P80    SSL  MySQL"
 echo "--------- --------- --------- -------- ------ ------ ---- -----"
-echo "$DATE, ${MEM[0]}, ${MEM[1]}, $PROC_CNT, $CONNECT_80($CONNECT_80_ALL), $CONNECT_SSL($CONNECT_SSL_ALL), $CONNECT_MySQL($CONNECT_MySQL_ALL)"
+echo "$DATE, ${MEM[0]}, ${MEM[1]}, $PROC_CNT, $CONNECT_80($CONNECT_80_ALL), $CON
+NECT_SSL($CONNECT_SSL_ALL), $CONNECT_MySQL($CONNECT_MySQL_ALL)"
 
+[ec2-user@blaublitz nssx]$ 

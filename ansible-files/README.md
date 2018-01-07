@@ -129,5 +129,10 @@ TASK [wordpress : generate secret keys] *******
 RUNNING HANDLER [wordpress : change wordpress files owner] *******
  [WARNING]: Consider using file module with owner rather than running chown
 
+ドキュメントルート
+/var/www/wordpress
+DB接続
+$ mysql -u wordpress wordpress 
+
 ## Wordpressのセットアップ開始
 http://192.168.33.12/wp-admin/install.php
