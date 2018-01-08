@@ -2,13 +2,17 @@
 # funxtion: messagesファイルの時間の範囲と行数を表示する
 #
 function usage(){
-  echo " $0 filename"
+	echo "usage: about.sh <filename>"
 }
 if [ -z $1 ] ; then
   usage
-  exit
-else
+  exit 0
+fi
+if [ -e $1 ]; then
   fname=$1
+else
+  echo "about.sh: no such file '$1'"
+  exit 0
 fi
 
 first=`head -1 $1 | awk '{print $1, $2, $3}'`
