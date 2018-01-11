@@ -1,13 +1,12 @@
 #/bin/bash
-# function : style-arena
-# create   : 2017/12/01
+# function : database buckup
 
 # 定数
-DBuser="stylearena"
-DBpasswd="u7sAyBmBx4mv"
-DBname="stylearena_prod_new2016"
-DBhost="stylearena.coxt8a0txbmu.ap-northeast-1.rds.amazonaws.com"
-Outpath="/home/stylearena/backups/database"
+DBuser="hoge"
+DBpasswd="piyo"
+DBname="prod_db"
+DBhost="hoge.rds.amazonaws.com"
+Outpath="/home/backups/database"
 Today=`date '+%Y%m%d'`
 File_ext="sql"
 
