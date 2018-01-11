@@ -1,12 +1,9 @@
 #!/bin/bash
 #
-# fuction: file sync (web(admin) -> S3)
-# create : 2017/09/11 miida
-# update : 2017/09/12 
-# update : 2017/12/08 
+# fuction: file sync (web -> S3)
 
-SRC="/var/www/html/style-arena.jp/PROD/style-arena.jp/public/images/"
-DST="s3://style-arena-data/html/style-arena.jp/PROD/style-arena.jp/public/images/"
+SRC="/var/www/html/public/images/"
+DST="s3://data/html/public/images/"
 NICE=10
 PROC="/usr/bin/aws s3 sync"
 
