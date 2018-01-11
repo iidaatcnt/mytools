@@ -1,9 +1,8 @@
 #/bin/bash
-# function : style-arena
-# create   : 2017/12/04
+# function : backup_webapp
 
 # 定数
-Outpath="/home/stylearena/backups/webapp"
+Outpath="/home/backups/webapp"
 Today=`date '+%Y%m%d'`
 File_ext="tar.gz"
 
@@ -12,15 +11,15 @@ echo $(date +"%Y/%m/%d-%H:%M:%S") start
 
 nice -n +10  \
   tar \
-  czvf ${Outpath}/stylearena_webapp_${Today}.${File_ext} \
-  --exclude='/var/www/html/style-arena.jp/PROD/style-arena.jp/public/images' \
-  --exclude='/var/www/html/style-arena.jp/PROD/style-arena.jp/logs' \
-  --exclude='/var/www/html/style-arena.jp/PROD/style-arena.jp/public/tmp' \
-  --exclude='/var/www/html/style-arena.jp/PROD/assets/sass/.sass-cache' \
-  --exclude='/var/www/html/style-arena.jp/PROD/assets/sass-twitter-bootstrap/lib/.sass-cache' \
-  /var/www/html/style-arena.jp/PROD
+  czvf ${Outpath}/webapp_${Today}.${File_ext} \
+  --exclude='/var/www/html/PROD/public/images' \
+  --exclude='/var/www/html/PROD/logs' \
+  --exclude='/var/www/html/PROD/public/tmp' \
+  --exclude='/var/www/html/PROD/assets/sass/.sass-cache' \
+  --exclude='/var/www/html/PROD/assets/sass-twitter-bootstrap/lib/.sass-cache' \
+  /var/www/html/PROD
 
-ls -l ${Outpath}/stylearena_webapp_${Today}.${File_ext}
+ls -l ${Outpath}/webapp_${Today}.${File_ext}
 
 # 古いバックアップファイルは削除する
 dlist=`find ${Outpath} -name "*.${File_ext}" -mtime +2`
