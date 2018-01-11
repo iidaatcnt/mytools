@@ -2,11 +2,11 @@
 # funxtion: messagesファイルを時毎にカウントする
 #
 function usage(){
-  echo " $0 filename"
+	echo "usage: sum.sh <filename>"
 }
 if [ -z $1 ] ; then
   usage
-  exit
+  exit 1
 else
   fname=$1
 fi
