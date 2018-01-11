@@ -6,13 +6,13 @@ function usage(){
 }
 if [ -z $1 ] ; then
   usage
-  exit 0
+  exit 1
 fi
 if [ -e $1 ]; then
   fname=$1
 else
   echo "about.sh: no such file '$1'"
-  exit 0
+  exit 1
 fi
 
 first=`head -1 $1 | awk '{print $1, $2, $3}'`
