@@ -13,8 +13,11 @@ with open('sample.json', 'r') as f:
 
 print(json_dict['book1'])
 
-a = json_dict['book1']
-b = json_dict['book2']
+# a = json_dict['book1']
+# b = json_dict['book2']
+#
+# print(a['title'])
+# print(b['title'])
 
-print(a['title'])
-print(b['title'])
+print(json_dict['book1']['title'])
+print(json_dict['book2']['title'])
