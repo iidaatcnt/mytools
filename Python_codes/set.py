@@ -19,3 +19,11 @@ print(a | b)
 print(a ^ b)
 
 # a + b は間違い
+print('--')
+print(a.add(8))
+
+print(a.remove(1))
+
+print(a.clear())
+
+
