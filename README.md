@@ -19,3 +19,4 @@ $ more scores.csv
 2017-05-18,14:47:22,sato,273,442,31,275
 
 add Python codes.
+and merge.
