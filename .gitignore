@@ -1,2 +1,6 @@
 outfir/
 .DS_Store
+.idea/
+.vscode/
+Python_codes/__pycache__/
+
