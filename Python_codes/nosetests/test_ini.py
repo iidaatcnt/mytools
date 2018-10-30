@@ -11,3 +11,8 @@ def test_1_is_true():
 
 def test_1_plus_2():
     eq_(1 + 2, 3)
+
+def test_1_plus_3():
+    l= [1,2,3]
+    l2 = [1,2,3]
+    eq_(l, l2)
