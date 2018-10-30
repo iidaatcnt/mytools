@@ -10,4 +10,4 @@ def test_1_is_true():
     ok_(bool(1))
 
 def test_1_plus_2():
-    eq(1 + 2, 3)
+    eq_(1 + 2, 3)
